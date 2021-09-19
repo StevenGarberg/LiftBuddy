@@ -1,0 +1,25 @@
+﻿@model LiftBuddy.Models.Requests.UserCreateRequest
+@{
+    ViewData["Title"] = "Create User";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        @using (Html.BeginForm("CreatePost", "User", FormMethod.Post))
+        {   
+            <label>Username</label>
+            <input class="form-control" asp-for="Username"/><br/>
+
+            <label>Password</label>
+            <input type="password" class="form-control" asp-for="Password"/><br/>
+
+            <label>Email</label>
+            <input class="form-control" type="email" asp-for="Email"/><br/>
+
+            <label>Phone Number</label>
+            <input class="form-control" asp-for="PhoneNumber"/><br/>
+
+            <input class="btn btn-success" type="submit" value="Create" />
+        }
+    </div>
+</div>

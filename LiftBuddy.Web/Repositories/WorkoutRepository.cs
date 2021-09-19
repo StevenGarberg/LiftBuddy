@@ -13,8 +13,13 @@ namespace LiftBuddy.Web.Repositories
             {
                 workouts.Add(new Workout
                 {
-                    Id = Guid.NewGuid(),
-                    PerformedAt = DateTime.UtcNow
+                    Id = Guid.NewGuid().ToString(),
+                    PerformedAt = DateTime.UtcNow,
+                    Exercises = new List<Exercise>
+                    {
+                        new StrengthExercise { Name = "Flat Bench" },
+                        new StrengthExercise { Name = "Squats" }
+                    }
                 });
             }
             return workouts;

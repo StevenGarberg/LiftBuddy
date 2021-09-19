@@ -1,4 +1,5 @@
-﻿@model IList<LiftBuddy.Models.Workout>
+﻿@using LiftBuddy.Models
+@model IList<LiftBuddy.Models.Workout>
 @{
     ViewData["Title"] = "Workouts Page";
 }
@@ -8,6 +9,7 @@
         <tr>
             <th>Id</th>
             <th>Performed At</th>
+            <th>Exercises</th>
         </tr>
     </thead>
     <tbody>
@@ -16,6 +18,17 @@
             <tr>
                 <td>@workout.Id</td>
                 <td>@workout.PerformedAt</td>
+                <td>
+                @if (workout.Exercises != null && workout.Exercises.Count > 0)
+                {
+                    <ul>
+                    @foreach (var exercise in workout.Exercises)
+                    {
+                        <li>@exercise.Name</li>
+                    }
+                    </ul>
+                }
+                </td>
             </tr>
         }
     </tbody>

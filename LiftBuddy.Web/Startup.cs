@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LiftBuddy.Web.Clients;
 using LiftBuddy.Web.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RestSharp;
 
 namespace LiftBuddy.Web
 {
@@ -25,6 +27,8 @@ namespace LiftBuddy.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddTransient<IRestClient, RestClient>(_ => new RestClient("https://friendly-api.azurewebsites.net/"));
+            services.AddScoped<UserClient>();
             services.AddScoped<WorkoutRepository>();
         }
 
