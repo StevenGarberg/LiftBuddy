@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using LiftBuddy.Models;
-using LiftBuddy.Models.Requests;
 using RestSharp;
 
 namespace LiftBuddy.Web.Clients
 {
-    public class UserClient
+    public class UserClient : IClient<User>
     {
         private readonly IRestClient _restClient;
         
@@ -31,18 +28,18 @@ namespace LiftBuddy.Web.Clients
             return response.Data;
         }
         
-        public async Task<User> Create(UserCreateRequest user)
+        public async Task<User> Create(object requestBody)
         {
             var request = new RestRequest("users", Method.POST);
-            request.AddJsonBody(user);
+            request.AddJsonBody(requestBody);
             var response = await _restClient.ExecuteAsync<User>(request);
             return response.Data;
         }
         
-        public async Task<User> Update(string id, UserUpdateRequest updateRequest)
+        public async Task<User> Update(string id, object requestBody)
         {
             var request = new RestRequest($"users/{id}", Method.PUT);
-            request.AddJsonBody(updateRequest);
+            request.AddJsonBody(requestBody);
             var response = await _restClient.ExecuteAsync<User>(request);
             return response.Data;
         }

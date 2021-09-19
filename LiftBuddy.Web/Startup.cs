@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LiftBuddy.Models;
 using LiftBuddy.Web.Clients;
 using LiftBuddy.Web.Repositories;
 using Microsoft.AspNetCore.Builder;
@@ -31,7 +32,7 @@ namespace LiftBuddy.Web
             var friendlyApiUrl = _configuration["FriendlyApi"];
             services.AddTransient<IRestClient, RestClient>(_ => new RestClient(friendlyApiUrl));
             
-            services.AddScoped<UserClient>();
+            services.AddScoped<IClient<User>, UserClient>();
             services.AddScoped<WorkoutRepository>();
         }
 

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Threading.Tasks;
 using LiftBuddy.Models;
 using LiftBuddy.Models.Requests;
 using LiftBuddy.Web.Clients;
 using LiftBuddy.Web.Models;
-using LiftBuddy.Web.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -16,9 +13,9 @@ namespace LiftBuddy.Web.Controllers
     public class UserController : Controller
     {
         private readonly ILogger<UserController> _logger;
-        private readonly UserClient _client;
+        private readonly IClient<User> _client;
 
-        public UserController(ILogger<UserController> logger, UserClient client)
+        public UserController(ILogger<UserController> logger, IClient<User> client)
         {
             _logger = logger;
             _client = client;
