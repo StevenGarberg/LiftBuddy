@@ -4,7 +4,7 @@ using LiftBuddy.Models;
 
 namespace LiftBuddy.Web.Repositories
 {
-    public class WorkoutRepository
+    public class WorkoutRepository : IRepository<Workout>
     {
         public IList<Workout> GetAll()
         {

@@ -13,9 +13,9 @@ namespace LiftBuddy.Web.Controllers
     public class WorkoutController : Controller
     {
         private readonly ILogger<WorkoutController> _logger;
-        private readonly WorkoutRepository _repository;
+        private readonly IRepository<Workout> _repository;
 
-        public WorkoutController(ILogger<WorkoutController> logger, WorkoutRepository repository)
+        public WorkoutController(ILogger<WorkoutController> logger, IRepository<Workout> repository)
         {
             _logger = logger;
             _repository = repository;

@@ -33,7 +33,7 @@ namespace LiftBuddy.Web
             services.AddTransient<IRestClient, RestClient>(_ => new RestClient(friendlyApiUrl));
             
             services.AddScoped<IClient<User>, UserClient>();
-            services.AddScoped<WorkoutRepository>();
+            services.AddScoped<IRepository<Workout>, WorkoutRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
