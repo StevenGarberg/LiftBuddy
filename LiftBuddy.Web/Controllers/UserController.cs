@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using LiftBuddy.Models;
 using LiftBuddy.Models.Requests;
@@ -23,7 +24,7 @@ namespace LiftBuddy.Web.Controllers
         
         public async Task<IActionResult> Index()
         {
-            var users = await _client.GetAll();
+            var users = await _client.GetAll() ?? new List<User>();
             return View(users);
         }
         
