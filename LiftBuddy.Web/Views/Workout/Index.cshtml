@@ -1,0 +1,22 @@
+﻿@model IList<LiftBuddy.Models.Workout>
+@{
+    ViewData["Title"] = "Workouts Page";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Performed At</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var workout in Model)
+        {
+            <tr>
+                <td>@workout.Id</td>
+                <td>@workout.PerformedAt</td>
+            </tr>
+        }
+    </tbody>
+</table>

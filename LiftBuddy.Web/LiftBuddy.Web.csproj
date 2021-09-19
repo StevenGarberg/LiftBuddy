@@ -4,4 +4,8 @@
         <TargetFramework>net5.0</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\LiftBuddy.Models\LiftBuddy.Models.csproj" />
+    </ItemGroup>
+
 </Project>
