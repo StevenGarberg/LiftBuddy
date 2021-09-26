@@ -1,0 +1,38 @@
+﻿@page "/log"
+@using LiftBuddy.Models
+
+<h1>Log Workout</h1>
+
+@if (loadFailed)
+{
+    <h1>ERROR</h1>
+    <h3>@exception.Message</h3>
+    <p>@exception.StackTrace</p>
+}
+else if (workout == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <RadzenTemplateForm Data="@workout" Submit="@(async (Workout args) => { await Submit(); })">
+                <div class="row">
+                    <div class="col-md-6">
+                        <fieldset>
+                            <legend>Details</legend>
+                            <div class="row mb-3">
+                                <div class="col-md-4 align-items-center d-flex">
+                                    <RadzenLabel Text="Performed At"/>
+                                </div>
+                                <div class="col-md-8">
+                                    <RadzenDatePicker style="width: 100%;" AllowClear="true" ShowTime="true" TValue="DateTime" Data="AquariumConstants.PerformedAt" @bind-Value="workout.PerformedAt" />
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-6">
+                    </div>
+                </div>
+    </RadzenTemplateForm>
+    <br/><br/>
+}
