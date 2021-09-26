@@ -5,7 +5,7 @@ namespace LiftBuddy.Models
 {
     public class Workout : BaseResource
     {
-        public DateTime PerformedAt { get; set; }
+        public DateTime PerformedAt { get; set; } = DateTime.UtcNow;
         public List<Exercise> Exercises { get; set; } = new List<Exercise>();
     }
 }
