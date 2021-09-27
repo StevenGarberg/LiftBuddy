@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using LiftBuddy.App.Services;
 using LiftBuddy.Models;
+using LiftBuddy.Models.Enums;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 
@@ -55,6 +56,28 @@ namespace LiftBuddy.App.Pages
         private void Cancel()
         {
             NavigationManager.NavigateTo("/");
+        }
+
+        private void AddExercise(ExerciseType type)
+        {
+            Exercise exercise;
+            switch (type)
+            {
+                default:
+                    return;
+                case ExerciseType.Strength:
+                    exercise = new StrengthExercise();
+                    break;
+                case ExerciseType.Cardio:
+                    exercise = new CardioExercise();
+                    break;
+            }
+            workout.Exercises.Add(exercise);
+        }
+
+        private void RemoveExercise(Exercise exercise)
+        {
+            workout.Exercises.Remove(exercise);
         }
     }
 }
