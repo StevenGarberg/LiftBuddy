@@ -5,12 +5,15 @@ using LiftBuddy.App.Services;
 using LiftBuddy.Models;
 using LiftBuddy.Models.Enums;
 using Microsoft.AspNetCore.Components;
+using Radzen;
 
 namespace LiftBuddy.App.Pages
 {
     public partial class LogWorkout
     {
         [Inject] private NavigationManager NavigationManager { get; set; }
+        [Inject] private DialogService  DialogService  { get; set; }
+        [Inject] private NotificationService NotificationService { get; set; }
         [Inject] private WorkoutService WorkoutService { get; set; }
 
         private string userId;
@@ -75,9 +78,17 @@ namespace LiftBuddy.App.Pages
             workout.Exercises.Add(exercise);
         }
 
-        private void RemoveExercise(Exercise exercise)
+        private async Task RemoveExercise(Exercise exercise)
         {
+            var confirmed = await DialogService.Confirm("Are you sure?", "Delete Exercise",
+                new ConfirmOptions {OkButtonText = "Yes", CancelButtonText = "No"});
+            
             workout.Exercises.Remove(exercise);
+            
+            NotificationService.Notify(new NotificationMessage
+            {
+                Summary = "Success!", Detail = $"\"{exercise.Name}\" was deleted.", Duration = 5000f, Severity = NotificationSeverity.Success
+            });
         }
 
         private void MoveDown(int index, List<Exercise> exercises)

@@ -2,6 +2,9 @@
 @using LiftBuddy.Models
 @using LiftBuddy.Models.Enums
 
+<RadzenDialog />
+<RadzenNotification />
+
 <h1>Log Workout</h1>
 
 @if (loadFailed)
@@ -121,7 +124,7 @@ else
                                 </div>
                             }
                             <br/>
-                            <RadzenButton ButtonType="ButtonType.Button" Icon="delete" Text="Remove Exercise" Click="() => { RemoveExercise(exercise); }" ButtonStyle="ButtonStyle.Danger"/>
+                            <RadzenButton ButtonType="ButtonType.Button" Icon="delete" Text="Remove Exercise" Click="async () => { await RemoveExercise(exercise); }" ButtonStyle="ButtonStyle.Danger"/>
                             @if (i != exerciseCount - 1)
                             {
                                 <RadzenButton ButtonType="ButtonType.Button" Icon="arrow_downward" Text="Move Down" Click="() => { MoveDown(index, workout.Exercises); }" ButtonStyle="ButtonStyle.Info"/>
