@@ -47,7 +47,7 @@ else
                     {
                         var exercise = workout.Exercises[i];
                         <fieldset>
-                            <h2>Exercise #@(i+1) - @exercise.GetType().Name.Replace("Exercise", "")</h2>
+                            <h2>Exercise #@(i+1) - @exercise.GetType().Name.Replace("Exercise", "")@(string.IsNullOrEmpty(exercise.Name) ? "" : $" - {exercise.Name}")</h2>
                             <div class="row">
                                 <div class="col-md-4 align-items-center d-flex">
                                     <RadzenLabel Text="Name"/>
