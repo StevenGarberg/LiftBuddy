@@ -28,7 +28,15 @@ else
                             <RadzenLabel Text="Performed At"/>
                         </div>
                         <div class="col-md-8">
-                            <RadzenDatePicker style="width: 100%;" AllowClear="true" ShowTime="true" TValue="DateTime" Data="AquariumConstants.PerformedAt" @bind-Value="workout.PerformedAt"/>
+                            <RadzenDatePicker style="width: 100%;" AllowClear="true" ShowTime="true" TValue="DateTime" @bind-Value="workout.PerformedAt"/>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4 align-items-center d-flex">
+                            <RadzenLabel Text="Duration"/>
+                        </div>
+                        <div class="col-md-8">
+                            <RadzenNumeric Placeholder="10" style="width: 100%;" Name="Duration" @bind-Value="workout.Duration"/>
                         </div>
                     </div>
                 </fieldset>

@@ -12,34 +12,48 @@ using Microsoft.Extensions.Hosting;
 using LiftBuddy.App.Data;
 using LiftBuddy.App.Repositories;
 using LiftBuddy.App.Services;
+using MongoDB.Bson.Serialization.Conventions;
+using MongoDB.Driver;
 using Radzen;
 
 namespace LiftBuddy.App
 {
     public class Startup
     {
+        private readonly IConfiguration _configuration;
+        
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            // Blazor setup
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
             
+            // Mongo configuration
+            var conventionPack = new  ConventionPack {new CamelCaseElementNameConvention()};
+            ConventionRegistry.Register("camelCase", conventionPack, t => true);
+            
+            // Mongo client
+            var mongoDbConnectionString = _configuration["ConnectionStrings:Mongo"];
+            services.AddScoped<IMongoClient, MongoClient>(_ => new MongoClient(MongoClientSettings.FromConnectionString(mongoDbConnectionString)));
+            
+            // Radzen components
             services.AddScoped<DialogService>();
             services.AddScoped<NotificationService>();
             services.AddScoped<TooltipService>();
             services.AddScoped<ContextMenuService>();
 
+            // Repositories
             services.AddScoped<WorkoutRepository>();
 
+            // Services
             services.AddScoped<WorkoutService>();
         }
 

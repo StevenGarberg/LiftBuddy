@@ -4,7 +4,6 @@ using LiftBuddy.App.Services;
 using LiftBuddy.Models;
 using LiftBuddy.Models.Enums;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
 
 namespace LiftBuddy.App.Pages
 {
