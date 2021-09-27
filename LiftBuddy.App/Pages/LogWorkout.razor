@@ -1,5 +1,6 @@
 ﻿@page "/log"
 @using LiftBuddy.Models
+@using LiftBuddy.Models.Enums
 
 <h1>Log Workout</h1>
 
@@ -11,28 +12,129 @@
 }
 else if (workout == null)
 {
-    <p><em>Loading...</em></p>
+    <p>
+        <em>Loading...</em>
+    </p>
 }
 else
 {
     <RadzenTemplateForm Data="@workout" Submit="@(async (Workout args) => { await Submit(); })">
-                <div class="row">
-                    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-6">
+                <fieldset>
+                    <legend>Details</legend>
+                    <div class="row mb-3">
+                        <div class="col-md-4 align-items-center d-flex">
+                            <RadzenLabel Text="Performed At"/>
+                        </div>
+                        <div class="col-md-8">
+                            <RadzenDatePicker style="width: 100%;" AllowClear="true" ShowTime="true" TValue="DateTime" Data="AquariumConstants.PerformedAt" @bind-Value="workout.PerformedAt"/>
+                        </div>
+                    </div>
+                </fieldset>
+                <hr/>
+                @if (workout.Exercises?.Any() ?? false)
+                {
+                    for (var i = 0; i < workout.Exercises.Count; i++)
+                    {
+                        var exercise = workout.Exercises[i];
                         <fieldset>
-                            <legend>Details</legend>
-                            <div class="row mb-3">
+                            <h2>Exercise #@(i+1) - @exercise.GetType().Name.Replace("Exercise", "")</h2>
+                            <div class="row">
                                 <div class="col-md-4 align-items-center d-flex">
-                                    <RadzenLabel Text="Performed At"/>
+                                    <RadzenLabel Text="Name"/>
                                 </div>
                                 <div class="col-md-8">
-                                    <RadzenDatePicker style="width: 100%;" AllowClear="true" ShowTime="true" TValue="DateTime" Data="AquariumConstants.PerformedAt" @bind-Value="workout.PerformedAt" />
+                                    <RadzenTextBox style="width: 100%;" Name="Name" @bind-Value="exercise.Name"/>
                                 </div>
                             </div>
+                            @if (exercise is StrengthExercise strengthExercise)
+                            {
+                                <div class="row">
+                                    <div class="col-md-4 align-items-center d-flex">
+                                        <RadzenLabel Text="Sets"/>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <RadzenNumeric Placeholder="3" style="width: 100%;" Name="Sets" @bind-Value="strengthExercise.Sets"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 align-items-center d-flex">
+                                        <RadzenLabel Text="Repetitions"/>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <RadzenNumeric Placeholder="12" style="width: 100%;" Name="Repetitions" @bind-Value="strengthExercise.Repetitions"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 align-items-center d-flex">
+                                        <RadzenLabel Text="Weight"/>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <RadzenNumeric Placeholder="10" style="width: 100%;" Name="Weight" @bind-Value="strengthExercise.Weight"/>
+                                    </div>
+                                </div>
+                            }
+                            else if (exercise is CardioExercise cardioExercise)
+                            {
+                                <div class="row">
+                                    <div class="col-md-4 align-items-center d-flex">
+                                        <RadzenLabel Text="Duration"/>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <RadzenNumeric Placeholder="10" style="width: 100%;" Name="Duration" @bind-Value="cardioExercise.Duration"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 align-items-center d-flex">
+                                        <RadzenLabel Text="Calories Burned"/>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <RadzenNumeric Placeholder="10" style="width: 100%;" Name="CaloriesBurned" @bind-Value="cardioExercise.CaloriesBurned"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 align-items-center d-flex">
+                                        <RadzenLabel Text="Start Time"/>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <RadzenDatePicker style="width: 100%;" AllowClear="true" ShowTime="true" TValue="DateTime?" @bind-Value="cardioExercise.StartTime" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 align-items-center d-flex">
+                                        <RadzenLabel Text="End Time"/>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <RadzenDatePicker style="width: 100%;" AllowClear="true" ShowTime="true" TValue="DateTime?" @bind-Value="cardioExercise.EndTime" />
+                                    </div>
+                                </div>
+                            }
+                            <RadzenButton ButtonType="ButtonType.Button" Icon="delete" Text="Remove Exercise" Click="() => { RemoveExercise(exercise); }" ButtonStyle="ButtonStyle.Danger"/>
                         </fieldset>
-                    </div>
-                    <div class="col-md-6">
+                        <hr/>
+                    }
+                }
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <RadzenButton ButtonType="ButtonType.Button" Icon="create" Text="Add Strength Exercise" Click="() => { AddExercise(ExerciseType.Strength); }" ButtonStyle="ButtonStyle.Secondary"/>
+                        <RadzenButton ButtonType="ButtonType.Button" Icon="create" Text="Add Cardio Exercise" Click="() => { AddExercise(ExerciseType.Cardio); }" ButtonStyle="ButtonStyle.Secondary"/>
                     </div>
                 </div>
+                <br/><br/>
+                <div class="row">
+                    <div class="col-md-12">
+                        <RadzenButton ButtonType="ButtonType.Submit" Icon="save" Text="Save" ButtonStyle="ButtonStyle.Info"/>
+                        <RadzenButton ButtonType="ButtonType.Reset" Icon="cancel" Text="Cancel" Click="Cancel" ButtonStyle="ButtonStyle.Danger"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+            </div>
+        </div>
+
     </RadzenTemplateForm>
-    <br/><br/>
+    <br/>
+    <br/>
 }
