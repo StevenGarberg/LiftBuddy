@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using LiftBuddy.App.Data;
+using LiftBuddy.App.Repositories;
+using LiftBuddy.App.Services;
 using Radzen;
 
 namespace LiftBuddy.App
@@ -35,6 +37,10 @@ namespace LiftBuddy.App
             services.AddScoped<NotificationService>();
             services.AddScoped<TooltipService>();
             services.AddScoped<ContextMenuService>();
+
+            services.AddScoped<WorkoutRepository>();
+
+            services.AddScoped<WorkoutService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
