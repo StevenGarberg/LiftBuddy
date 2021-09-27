@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using LiftBuddy.App.Services;
 using LiftBuddy.Models;
@@ -77,6 +78,23 @@ namespace LiftBuddy.App.Pages
         private void RemoveExercise(Exercise exercise)
         {
             workout.Exercises.Remove(exercise);
+        }
+
+        private void MoveDown(int index, List<Exercise> exercises)
+        {
+            var exercise = exercises[index];
+            var tempExercise = exercises[index + 1];
+            exercises[index + 1] = exercise;
+            exercises[index] = tempExercise;
+
+        }
+
+        private void MoveUp(int index, List<Exercise> exercises)
+        {
+            var exercise = exercises[index];
+            var tempExercise = exercises[index -1];
+            exercises[index - 1] = exercise;
+            exercises[index] = tempExercise;
         }
     }
 }

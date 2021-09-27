@@ -43,8 +43,10 @@ else
                 <hr/>
                 @if (workout.Exercises?.Any() ?? false)
                 {
-                    for (var i = 0; i < workout.Exercises.Count; i++)
+                    var exerciseCount = workout.Exercises.Count;
+                    for (var i = 0; i < exerciseCount; i++)
                     {
+                        var index = i;
                         var exercise = workout.Exercises[i];
                         <fieldset>
                             <h2>Exercise #@(i+1) - @exercise.GetType().Name.Replace("Exercise", "")@(string.IsNullOrEmpty(exercise.Name) ? "" : $" - {exercise.Name}")</h2>
@@ -118,7 +120,16 @@ else
                                     </div>
                                 </div>
                             }
+                            <br/>
                             <RadzenButton ButtonType="ButtonType.Button" Icon="delete" Text="Remove Exercise" Click="() => { RemoveExercise(exercise); }" ButtonStyle="ButtonStyle.Danger"/>
+                            @if (i != exerciseCount - 1)
+                            {
+                                <RadzenButton ButtonType="ButtonType.Button" Icon="arrow_downward" Text="Move Down" Click="() => { MoveDown(index, workout.Exercises); }" ButtonStyle="ButtonStyle.Info"/>
+                            }
+                            @if (i != 0)
+                            {
+                                <RadzenButton ButtonType="ButtonType.Button" Icon="arrow_upward" Text="Move Up" Click="() => { MoveUp(index, workout.Exercises); }" ButtonStyle="ButtonStyle.Info"/>
+                            }
                         </fieldset>
                         <hr/>
                     }
