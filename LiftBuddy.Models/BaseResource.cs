@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Text.Json.Serialization;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace LiftBuddy.Models
 {
     public abstract class BaseResource
     {
+        [BsonId]
         public string Id { get; set; }
 
         public string OwnerId { get; set; }
