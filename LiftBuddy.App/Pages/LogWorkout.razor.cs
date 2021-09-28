@@ -15,6 +15,8 @@ namespace LiftBuddy.App.Pages
         [Inject] private DialogService  DialogService  { get; set; }
         [Inject] private NotificationService NotificationService { get; set; }
         [Inject] private WorkoutService WorkoutService { get; set; }
+        
+        [Parameter] public string Id { get; set; }
 
         private string userId;
         private Workout workout;
@@ -31,10 +33,21 @@ namespace LiftBuddy.App.Pages
             
             try
             {
-                workout = new Workout
+                if (Id != null)
                 {
-                    OwnerId = userId
-                };
+                    workout = await WorkoutService.GetById(Id);
+                    if (workout == null)
+                    {
+                        NavigationManager.NavigateTo("/workouts");
+                    }
+                }
+                else
+                {
+                    workout = new Workout
+                    {
+                        OwnerId = userId
+                    };
+                }
             }
             catch(Exception e)
             {
@@ -51,14 +64,21 @@ namespace LiftBuddy.App.Pages
     
         private async Task Submit()
         {
-            workout = await WorkoutService.CreateAsync(userId, workout);
-            
-            NavigationManager.NavigateTo("/");
+            if (Id != null)
+            {
+                workout = await WorkoutService.Update(Id, workout);   
+            }
+            else
+            {
+                workout = await WorkoutService.CreateAsync(userId, workout);   
+            }
+
+            NavigationManager.NavigateTo("/workouts");
         }
 
         private void Cancel()
         {
-            NavigationManager.NavigateTo("/");
+            NavigationManager.NavigateTo("/workouts");
         }
 
         private void AddExercise(ExerciseType type)

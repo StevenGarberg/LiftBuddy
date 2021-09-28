@@ -1,11 +1,20 @@
 ﻿@page "/log"
+@page "/log/{Id}"
 @using LiftBuddy.Models
 @using LiftBuddy.Models.Enums
 
 <RadzenDialog />
 <RadzenNotification />
 
-<h1>Log Workout</h1>
+@if (Id == null)
+{
+    <h1>Log Workout</h1>
+}
+else
+{
+    <h1>Edit Workout<br/><small>ID: @Id</small></h1>
+}
+<hr/>
 
 @if (loadFailed)
 {
