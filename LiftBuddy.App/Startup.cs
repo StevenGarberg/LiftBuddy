@@ -54,6 +54,7 @@ namespace LiftBuddy.App
             services.AddScoped<WorkoutRepository>();
 
             // Services
+            services.AddSingleton<WorkoutNameService>();
             services.AddScoped<WorkoutService>();
         }
 
