@@ -2,8 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiftBuddy.Models", "LiftBuddy.Models\LiftBuddy.Models.csproj", "{4E218214-F88A-44CD-BAC5-BF7C473E877F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiftBuddy.Web", "LiftBuddy.Web\LiftBuddy.Web.csproj", "{1365BE71-883C-46FE-B069-EE4DEF73F361}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiftBuddy.App", "LiftBuddy.App\LiftBuddy.App.csproj", "{5356DF55-D766-4E61-BBCC-20879E766828}"
 EndProject
 Global
@@ -16,10 +14,6 @@ Global
 		{4E218214-F88A-44CD-BAC5-BF7C473E877F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E218214-F88A-44CD-BAC5-BF7C473E877F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E218214-F88A-44CD-BAC5-BF7C473E877F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1365BE71-883C-46FE-B069-EE4DEF73F361}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1365BE71-883C-46FE-B069-EE4DEF73F361}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1365BE71-883C-46FE-B069-EE4DEF73F361}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1365BE71-883C-46FE-B069-EE4DEF73F361}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5356DF55-D766-4E61-BBCC-20879E766828}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5356DF55-D766-4E61-BBCC-20879E766828}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5356DF55-D766-4E61-BBCC-20879E766828}.Release|Any CPU.ActiveCfg = Release|Any CPU
