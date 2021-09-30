@@ -1,5 +1,5 @@
 # LiftBuddy
 
-An app for tracking your lifts.
+An app for tracking your lifts built with .NET 5, Blazor Server, Radzen, and MongoDB.
 
-Integrated with the community driven "Friendly API".
+https://lift-buddy.azurewebsites.net/
