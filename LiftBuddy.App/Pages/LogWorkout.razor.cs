@@ -15,12 +15,14 @@ namespace LiftBuddy.App.Pages
         [Inject] private DialogService  DialogService  { get; set; }
         [Inject] private NotificationService NotificationService { get; set; }
         [Inject] private WorkoutService WorkoutService { get; set; }
+        [Inject] private WorkoutNameService WorkoutNameService { get; set; }
         
         [Parameter] public string Id { get; set; }
 
         private string userId;
         private Workout workout;
-    
+        private IReadOnlyCollection<NamedWorkout> namedWorkouts;
+
         private bool loadFailed = false;
         private Exception exception;
 
@@ -48,6 +50,8 @@ namespace LiftBuddy.App.Pages
                         OwnerId = userId
                     };
                 }
+
+                namedWorkouts = WorkoutNameService.GetAll();
             }
             catch(Exception e)
             {
@@ -126,6 +130,11 @@ namespace LiftBuddy.App.Pages
             var tempExercise = exercises[index -1];
             exercises[index - 1] = exercise;
             exercises[index] = tempExercise;
+        }
+
+        private void UpdateName(object value, Exercise exercise)
+        {
+            exercise.Name = value.ToString();
         }
     }
 }

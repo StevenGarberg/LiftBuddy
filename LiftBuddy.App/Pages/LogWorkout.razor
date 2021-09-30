@@ -67,7 +67,7 @@ else
                                     <RadzenLabel Text="Name"/>
                                 </div>
                                 <div class="col-md-8">
-                                    <RadzenTextBox style="width: 100%;" Name="Name" @bind-Value="exercise.Name"/>
+                                    <RadzenAutoComplete style="width: 100%;" Data="@namedWorkouts" TextProperty="Name" Change=@(args => UpdateName(args, exercise)) />
                                 </div>
                             </div>
                             @if (exercise is StrengthExercise strengthExercise)
