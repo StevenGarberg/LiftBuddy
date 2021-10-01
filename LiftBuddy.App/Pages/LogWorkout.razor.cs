@@ -51,19 +51,7 @@ namespace LiftBuddy.App.Pages
                 }
                 else
                 {
-                    // TODO: Load routines
-                    routines = new List<Routine>
-                    {
-                        new Routine
-                        {
-                            Id = Guid.NewGuid().ToString(),
-                            Name = "Bicep Day",
-                            Exercises = new List<Exercise>
-                            {
-                                new StrengthExercise { Name = "test" }
-                            }
-                        }
-                    };
+                    routines = await  RoutineService.GetAllByOwnerId(userId);
                     workout = new Workout
                     {
                         OwnerId = userId
@@ -146,7 +134,7 @@ namespace LiftBuddy.App.Pages
         private void MoveUp(int index, List<Exercise> exercises)
         {
             var exercise = exercises[index];
-            var tempExercise = exercises[index -1];
+            var tempExercise = exercises[index - 1];
             exercises[index - 1] = exercise;
             exercises[index] = tempExercise;
         }
