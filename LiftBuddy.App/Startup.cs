@@ -52,10 +52,12 @@ namespace LiftBuddy.App
 
             // Repositories
             services.AddScoped<WorkoutRepository>();
+            services.AddScoped<RoutineRepository>();
 
             // Services
             services.AddSingleton<WorkoutNameService>();
             services.AddScoped<WorkoutService>();
+            services.AddScoped<RoutineService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
