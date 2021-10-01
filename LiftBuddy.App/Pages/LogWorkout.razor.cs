@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using LiftBuddy.App.Services;
 using LiftBuddy.Models;
@@ -14,6 +15,7 @@ namespace LiftBuddy.App.Pages
         [Inject] private NavigationManager NavigationManager { get; set; }
         [Inject] private DialogService  DialogService  { get; set; }
         [Inject] private NotificationService NotificationService { get; set; }
+        [Inject] private RoutineService RoutineService { get; set; }
         [Inject] private WorkoutService WorkoutService { get; set; }
         [Inject] private WorkoutNameService WorkoutNameService { get; set; }
         
@@ -23,6 +25,10 @@ namespace LiftBuddy.App.Pages
         private Workout workout;
         private IReadOnlyCollection<NamedWorkout> namedWorkouts;
 
+        private string routineId;
+        private Routine routine;
+        private List<Routine> routines;
+    
         private bool loadFailed = false;
         private Exception exception;
 
@@ -45,6 +51,19 @@ namespace LiftBuddy.App.Pages
                 }
                 else
                 {
+                    // TODO: Load routines
+                    routines = new List<Routine>
+                    {
+                        new Routine
+                        {
+                            Id = Guid.NewGuid().ToString(),
+                            Name = "Bicep Day",
+                            Exercises = new List<Exercise>
+                            {
+                                new StrengthExercise { Name = "test" }
+                            }
+                        }
+                    };
                     workout = new Workout
                     {
                         OwnerId = userId
@@ -135,6 +154,30 @@ namespace LiftBuddy.App.Pages
         private void UpdateName(object value, Exercise exercise)
         {
             exercise.Name = value.ToString();
+        }
+
+        private void ImportRoutine()
+        {
+            foreach (var exercise in routine.Exercises)
+            {
+                workout.Exercises.Add(exercise.Clone());
+            }
+        }
+
+        private async Task SaveAsRoutine()
+        {
+            if (workout.Exercises == null || !workout.Exercises.Any())
+                return;
+
+            var firstExerciseName = workout.Exercises.First().GetType()
+                .Name.Replace("Exercise", string.Empty);
+            
+            var newRoutine = new Routine(workout)
+            {
+                Name = $"{firstExerciseName} Routine"
+            };
+            
+            newRoutine = await RoutineService.CreateAsync(userId, newRoutine);
         }
     }
 }

@@ -30,6 +30,16 @@ else if (workout == null)
 }
 else
 {
+    if (Id == null)
+    {
+        <RadzenDropDown AllowClear="true" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                        TValue="Routine" Style="width:300px" 
+                        Data=@routines @bind-Value="@routine" TextProperty="Name" />
+        <br/>
+        <RadzenButton Icon="add_circle_outline" style="margin-bottom: 10px" Text="Import Routine" Click="@ImportRoutine" ButtonStyle="ButtonStyle.Info" />
+        <br/>   
+        <hr/>
+    }
     <RadzenTemplateForm Data="@workout" Submit="@(async (Workout args) => { await Submit(); })">
         <div class="row">
             <div class="col-md-6">
@@ -157,6 +167,7 @@ else
                 <div class="row">
                     <div class="col-md-12">
                         <RadzenButton ButtonType="ButtonType.Submit" Icon="save" Text="Save" ButtonStyle="ButtonStyle.Info"/>
+                        <RadzenButton ButtonType="ButtonType.Submit" Icon="save" Text="Save as Routine" Click="SaveAsRoutine" ButtonStyle="ButtonStyle.Info"/>
                         <RadzenButton ButtonType="ButtonType.Reset" Icon="cancel" Text="Cancel" Click="Cancel" ButtonStyle="ButtonStyle.Danger"/>
                     </div>
                 </div>

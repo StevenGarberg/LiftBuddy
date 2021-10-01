@@ -1,0 +1,49 @@
+﻿@page "/routines"
+@using LiftBuddy.Models
+
+<RadzenDialog />
+<RadzenNotification />
+
+<h1>Routines</h1>
+
+@if (loadFailed)
+{
+    <h1>ERROR</h1>
+    <h3>@exception.Message</h3>
+    <p>@exception.StackTrace</p>
+}
+else if (routines == null)
+{
+    <p>
+        <em>Loading...</em>
+    </p>
+}
+else
+{
+    <RadzenGrid @ref="grid" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+                AllowPaging="true" PageSize="10" AllowSorting="true" Data="@routines" TItem="Routine">
+        <Columns>
+            <RadzenGridColumn TItem="Routine" Property="Id" Title="Id"/>
+            <RadzenGridColumn TItem="Routine" Property="Name" Title="Name"/>
+            <RadzenGridColumn TItem="Routine" Property="UpdatedAt" Title="Updated At"/>
+            <RadzenGridColumn TItem="Routine" Title="Exercises" Sortable="false" Filterable="true">
+                <Template Context="data">
+                    @if (data.Exercises?.Any() ?? false)
+                    {
+                        <ol>
+                            @foreach (var exercise in data.Exercises)
+                            {
+                                <li>@exercise.Name</li>
+                            }
+                        </ol>   
+                    }
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Routine" Title="Actions" Sortable="false" Filterable="false">
+                <Template Context="data">
+                    <RadzenButton Icon="delete" style="margin-bottom: 10px" Click="@(_ => Delete(data.Id))" ButtonStyle="ButtonStyle.Danger"/>
+                </Template>
+            </RadzenGridColumn>
+        </Columns>
+    </RadzenGrid>
+}
