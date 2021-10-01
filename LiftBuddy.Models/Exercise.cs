@@ -6,5 +6,10 @@ namespace LiftBuddy.Models
     public abstract class Exercise
     {
         public string Name { get; set; }
+
+        public Exercise Clone()
+        {
+            return (Exercise)MemberwiseClone();
+        }
     }
 }
