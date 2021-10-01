@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using LiftBuddy.App.Repositories;
 using LiftBuddy.Models;
@@ -42,12 +43,14 @@ namespace LiftBuddy.App.Services
 
         public async Task<List<Routine>> GetAllByOwnerId(string ownerId)
         {
-            return await _routineRepository.GetAllByOwnerId(ownerId);
+            var routines = await _routineRepository.GetAllByOwnerId(ownerId);
+            return routines?.OrderBy(x => x.Name).ToList();
         }
 
         public async Task<List<Routine>> GetAll()
         {
-            return await _routineRepository.GetAll();
+            var routines = await _routineRepository.GetAll();
+            return routines?.OrderBy(x => x.Name).ToList();
         }
     }
 }
